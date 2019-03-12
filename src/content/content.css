@@ -1,0 +1,23 @@
+.inspector_tool__is_active article:hover,
+.inspector_tool__is_active aside:hover,
+.inspector_tool__is_active code:hover,
+.inspector_tool__is_active details:hover,
+.inspector_tool__is_active div:hover,
+.inspector_tool__is_active figcaption:hover,
+.inspector_tool__is_active figure:hover,
+.inspector_tool__is_active footer:hover,
+.inspector_tool__is_active header:hover,
+.inspector_tool__is_active hgroup:hover,
+.inspector_tool__is_active main:hover,
+.inspector_tool__is_active menu:hover,
+.inspector_tool__is_active nav:hover,
+.inspector_tool__is_active pre:hover,
+.inspector_tool__is_active section:hover,
+.inspector_tool__is_active table:hover,
+.inspector_tool__is_active ul:hover {
+  background-color: rgba(0,0,0,.3);
+}
+.inspector_tool__is_active .selected_item {
+  background: rgba(138, 138, 138, 0.42);
+  outline: rgb(0, 255, 252) solid 2px;
+}

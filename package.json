@@ -1,0 +1,28 @@
+{
+  "name": "chrome-campaign-manager",
+  "version": "1.0.0",
+  "description": "marketing campaign tools for chrome",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charrismatic/chrome-campaign-manager.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "datatables",
+    "facebook",
+    "instagram"
+  ],
+  "author": "Matt Harris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charrismatic/chrome-campaign-manager/issues"
+  },
+  "homepage": "https://github.com/charrismatic/chrome-campaign-manager#readme"
+}

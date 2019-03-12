@@ -1,0 +1,64 @@
+<!doctype html>
+<html style="width: 500px;">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetDown Menu</title>
+<link href="/assets/styles/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/styles/flat-ui.css" rel="stylesheet">
+<link href="/assets/styles/panel.css" rel="stylesheet">
+<style>body {font-family: sans-serif;}</style>
+</head>
+<body class="h-100">
+
+<div class="container d-flex flex-column h-100 mt-0">
+  <div class="container flex-grow-0">
+    <div class="row fade d-none" id='error-box'>
+      <div class="col">
+        <div class='alert alert-danger'>
+          <p><span class="fui-cross"></span> <strong>Error!</strong> <span class='error-message'></span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-0" id='main-button-row'>
+      <div class="col d-flex">
+        <button id='toggle-inspect' class='btn btn-primary mr-1 fui-eye'></button>
+        <input type='text' class="form-control flex-grow-1 w-100 mx-1" id= 'id-selector' placeholder="Selector"/>
+        <button id='html2md' class='btn btn-primary flex-grow-1 w-100 mx-1'>Convert to Markdown</button>
+        <form id='codepen-form' class="flex-grow-1 w-100 ml-1" action="https://codepen.io/pen/define" method="POST" target="_blank" >
+          <input type="hidden" name="data" value=''/>
+          <button type='submit' class='btn btn-primary w-100'><span class="fui-mail"></span> Export</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container d-flex flex-grow-1 mt-0 mb-2">
+    <div class="form-row d-flex flex-grow-1 h-auto align-content-start my-0 mw-100" id='textareas-row'>
+      <div class="col w-50 d-flex flex-column">
+        <label class="badge badge-secondary flex-grow-0"  for="markdown_markup" >MARKDOWN</label>
+        <textarea id='markdown_markup' name="markdown_markup" readonly class="flex-grow-1 form-control text-dark"></textarea>
+      </div>
+      <div class="col w-50 d-flex flex-column">
+        <label class="badge badge-warning flex-grow-0">LIVE VIEW</label>
+        <div id="render" class="flex-grow-1"></div>
+      </div>
+    </div>
+  </div>
+
+<div id='loader'>
+  <div class='alert alert-warning'><p><span class="fui-time"></span> <strong>Please wait.</strong> Creating a snapshot...</p></div>
+  <div class='alert alert-warning'><p><span class="fui-time"></span> <strong>Please wait.</strong> Processing...</p></div>
+  <div id="message"></div>
+  <div id="result"></div>
+</div>
+</div>
+<script src="functions.js"></script>
+<script src="/assets/scripts/jquery-1.8.3.min.js"></script>
+<script src="/assets/scripts/bootstrap.min.js"></script>
+<script src='/assets/scripts/utilities.js'></script>
+<script src='panel.js'></script>
+</body>
+</html>

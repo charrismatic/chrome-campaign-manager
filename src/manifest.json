@@ -1,0 +1,38 @@
+{
+  "name": "campaign-manager",
+  "description": "Tools for managing social network campaigns",
+  "version": "1.0.0",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "storage",
+    "bookmarks"
+  ],
+  "icons": {
+     "16": "/assets/icon.16.png",
+     "48": "/assets/icon.48.png",
+    "128": "/assets/icon.128.png"
+  },
+  "options_page": "options/index.html",
+  "browser_action": {
+      "default_title": "Campaign Manager",
+      "default_icon": "assets/icon.png",
+      "default_popup": "popup.html"
+  },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*" ],
+    "run_at": "document_idle",
+    "js": ["content/content.js"],
+    "css": ["content/content.css"]
+  }],
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "background/functions.js",
+      "background/index.js",
+      "inject.js"
+    ]
+  },
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdn.datatables.net https://jsbeautifier.org; object-src 'self'",
+  "manifest_version": 2
+}

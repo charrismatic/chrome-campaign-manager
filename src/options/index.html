@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign Manager</title>
+<link href="/assets/styles/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/styles/flat-ui.css" rel="stylesheet">
+<link href="/assets/styles/panel.css" rel="stylesheet">
+<style>
+body { font-family: sans-serif; }
+label { display: block; }
+textarea { font-family: monospace; }
+.message {
+  width: 100%;
+  background: #eee;
+  padding: 5px;
+}
+.message__content {
+  width: 80%;
+  flex-grow: 1;
+  padding: 0 1em;
+}
+.message__controls {
+  width: 70px;
+}
+.flex {
+  display: flex;
+}
+</style>
+</head>
+<body class="h-100">
+<div class="container-fluid d-flex flex-column h-100 mt-0">
+  <div class="row">
+    <div class="col">
+      <div class="py-1 px-2 my-0">
+        <h2 class="my-1 ml-2 text-center">
+          <img src="/assets/icon.png" />Campaign Manager</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container flex-grow-0">
+    <div class="row fade d-none" id='error-box'>
+      <div class="col">
+        <div class='alert alert-danger'>
+          <p></span> <strong>Error!</strong> <span class='error-message'></span></p>
+        </div>
+      </div>
+    </div>
+
+  <section id="tabs">
+  <nav class="nav-tabs nav-fill" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link" id="nav-messages-tab" data-toggle="tab" href="#nav-messages" role="tab" aria-controls="nav-messages" aria-selected="false">Messages</a>
+      <a class="nav-item nav-link" id="nav-accounts-tab" data-toggle="tab" href="#nav-accounts" role="tab" aria-controls="nav-accounts" aria-selected="false">Accounts</a>
+      <a class="nav-item nav-link active" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="true">Settings</a>
+    </div>
+  </nav>
+  <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+  <!-- 1 -->
+    <div class="tab-pane fade show active" id="nav-messages" role="tabpanel" aria-labelledby="nav-messages-tab">
+      <div class="card-group col" id="">
+        <div class="card">
+          <div class="card-header small py-1 px-1 my-0">
+            <h4 class="card-title my-1 ml-2">
+              <span></span> Message Templates
+            </h4>
+          </div>
+          <div class="card-bodyContent small py-1 px-1 my-0" style="display:flex;">
+            <div id="message_templates" style="display:block; border:1px solid #aaa; flex: 1;">
+              <div id="message_table" class="display compact" width="100%">
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="col my-1 py-2">
+              <div class="message-notification"></div>
+            </div>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="flex">
+                <div><span class="btn btn-outline-info">{{@id}}</span></div>
+                <div><span class="btn btn-outline-info">{{@website}}</span></div>
+                <div><span class="btn btn-outline-info">{{@pageurl}}</span></div>
+              </div>
+            </div>
+            <div class="col form-group">
+              <textarea name="style_url" style="min-height: 80px;" class="form-control" id="style_url" placeholder="Write an example message to start"></textarea>
+            </div>
+          </div>
+          <div class="">
+            <div class="col form-group">
+              <button class="submit">Add</button>
+              <button class="reset">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- 2 -->
+
+    <div class="tab-pane" id="nav-accounts" role="tabpanel" aria-labelledby="nav-accounts-tab">
+      <div class="card-group col" id="">
+        <div class="card">
+          <div class="card-header small py-1 px-1 my-0">
+            <h4 class="card-title my-1 ml-2">
+              <span></span> Accounts
+            </h4>
+          </div>
+          <div>Quick Search: <input id="search"></div>
+          <table id="bookmark_table" class="display compact" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+          </table>
+          <div id="bookmarks"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tab-pane" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+      <div class="card-group col" id="">
+        <div class="card">
+          <div class="card-header small py-1 px-1 my-0">
+            <h4 class="card-title my-1 ml-2">
+              <a class="" data-toggle="" href="#settings" role="button" aria-expanded="false" aria-controls="settings">
+                <span>Settings</span>
+              </a>
+            </h4>
+          </div>
+          <div id="settings" class="">
+          <form>
+            <div class="card card-body">
+              <div class="list-group form-group">
+                  <label class="form-check-label checkbox"><input type='checkbox' class="form-check-input" checked="checked" name="settings-storage-sync" id="settings-storage-sync"/>Sync data with Google Account</label>
+                  <label class="form-check-label checkbox"><input type='checkbox' class="form-check-input" checked="checked" id='remove-webkit-properties'/>Log result to console</label>
+              </div>
+              <div class="list-group form-group">
+                <label class="">Default save path</label>
+                <input type='text' class="form-control" id='id-download-location' placeholder="~/Downloads/articles"/>
+              </div>
+              <div class="list-group form-group">
+                  <label>Default file naming pattern</label>
+                  <input type='text' class="form-control" id='id-name-pattern' placeholder="%DATE_%URL__%TITLE.md"/>
+              </div>
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</section>
+</div>
+</div>
+<!-- <link href="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.css" rel="stylesheet" type="text/css"> -->
+<!-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"> -->
+<!-- <link href="https://cdn.datatables.net/buttons/1.5.4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css"> -->
+<script src="/assets/scripts/jquery-1.8.3.min.js"></script>
+<script src="/assets/scripts/bootstrap.min.js"></script>
+<script src="/assets/scripts/flat-ui-checkbox.js"></script>
+<script src='/assets/scripts/panel.js'></script>
+<!-- <link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css"/> -->
+ <!-- <script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/buttons/1.5.4/js/buttons.bootstrap4.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script> -->
+<script src="/options/functions.js"></script>
+<script src="/options/index.js"></script>
+</body>
+</html>
