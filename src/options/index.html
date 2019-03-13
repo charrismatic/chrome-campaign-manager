@@ -31,6 +31,14 @@ textarea { font-family: monospace; }
 </head>
 <body class="h-100">
 <div class="container-fluid d-flex flex-column h-100 mt-0">
+  <div>
+    <select id="test-account">
+      <option>Active Account</option>
+    </select>
+    <button id="test-print">print</button>
+    <div id="test-message"></div>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
       <div class="py-1 px-2 my-0">
@@ -54,7 +62,7 @@ textarea { font-family: monospace; }
     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
       <a class="nav-item nav-link" id="nav-messages-tab" data-toggle="tab" href="#nav-messages" role="tab" aria-controls="nav-messages" aria-selected="false">Messages</a>
       <a class="nav-item nav-link" id="nav-accounts-tab" data-toggle="tab" href="#nav-accounts" role="tab" aria-controls="nav-accounts" aria-selected="false">Accounts</a>
-      <a class="nav-item nav-link active" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="true">Settings</a>
+      <a class="nav-item nav-link" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="true">Settings</a>
     </div>
   </nav>
   <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -64,7 +72,7 @@ textarea { font-family: monospace; }
         <div class="card">
           <div class="card-header small py-1 px-1 my-0">
             <h4 class="card-title my-1 ml-2">
-              <span></span> Message Templates
+              <span></span> Templates
             </h4>
           </div>
           <div class="card-bodyContent small py-1 px-1 my-0" style="display:flex;">
@@ -93,7 +101,7 @@ textarea { font-family: monospace; }
           <div class="">
             <div class="col form-group">
               <button class="submit">Add</button>
-              <button class="reset">Reset</button>
+              <button class="reset">Clear</button>
             </div>
           </div>
         </div>
@@ -110,18 +118,26 @@ textarea { font-family: monospace; }
               <span></span> Accounts
             </h4>
           </div>
-          <div>Quick Search: <input id="search"></div>
-          <table id="bookmark_table" class="display compact" width="100%">
+          <!-- <div>Quick Search: <input id="search"></div> -->
+          <table id="accounts_table" class="table" width="100%">
             <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>URL</th>
-                    <th>Tags</th>
-                </tr>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+              </tr>
             </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr class="add-accounts-row">
+                <td scope="col"><input class="input-field" type="text" placeholder="name"></input></td>
+                <td scope="col"><input class="input-field" type="text" placeholder="id"></input></td>
+                <td scope="col"><input class="input-field" type="text" placeholder="location"></input></td>
+                <td scope="col"><button>+</button></td>
+              </tr>
+            </tfoot>
           </table>
-          <div id="bookmarks"></div>
+          <div id="accounts"></div>
         </div>
       </div>
     </div>
@@ -132,50 +148,41 @@ textarea { font-family: monospace; }
         <div class="card">
           <div class="card-header small py-1 px-1 my-0">
             <h4 class="card-title my-1 ml-2">
-              <a class="" data-toggle="" href="#settings" role="button" aria-expanded="false" aria-controls="settings">
-                <span>Settings</span>
-              </a>
+              <span></span> Settings
             </h4>
           </div>
           <div id="settings" class="">
-          <form>
-            <div class="card card-body">
-              <div class="list-group form-group">
+            <form>
+              <div class="card card-body">
+                <div class="list-group form-group">
                   <label class="form-check-label checkbox"><input type='checkbox' class="form-check-input" checked="checked" name="settings-storage-sync" id="settings-storage-sync"/>Sync data with Google Account</label>
                   <label class="form-check-label checkbox"><input type='checkbox' class="form-check-input" checked="checked" id='remove-webkit-properties'/>Log result to console</label>
-              </div>
-              <div class="list-group form-group">
-                <label class="">Default save path</label>
-                <input type='text' class="form-control" id='id-download-location' placeholder="~/Downloads/articles"/>
-              </div>
-              <div class="list-group form-group">
+                </div>
+                <div class="list-group form-group">
+                  <label class="">Default save path</label>
+                  <input type='text' class="form-control" id='id-download-location' placeholder="~/Downloads/articles"/>
+                </div>
+                <div class="list-group form-group">
                   <label>Default file naming pattern</label>
                   <input type='text' class="form-control" id='id-name-pattern' placeholder="%DATE_%URL__%TITLE.md"/>
-              </div>
-              </div>
+                </div>
+              </form>
+              <form id='codepen-form' class="flex-grow-1 w-100 ml-1" action="https://codepen.io/pen/define" method="POST" target="_blank" >
+                <input type="hidden" name="data" value=''/>
+                <button type='submit' class='btn btn-primary w-100'><span class="fui-mail"></span> Export</button>
+              </form>
             </div>
-          </form>
           </div>
         </div>
       </div>
-
+    </div>
   </div>
 </section>
 </div>
 </div>
-<!-- <link href="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.css" rel="stylesheet" type="text/css"> -->
-<!-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"> -->
-<!-- <link href="https://cdn.datatables.net/buttons/1.5.4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css"> -->
 <script src="/assets/scripts/jquery-1.8.3.min.js"></script>
 <script src="/assets/scripts/bootstrap.min.js"></script>
 <script src="/assets/scripts/flat-ui-checkbox.js"></script>
-<script src='/assets/scripts/panel.js'></script>
-<!-- <link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css"/> -->
- <!-- <script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/buttons/1.5.4/js/buttons.bootstrap4.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script> -->
 <script src="/options/functions.js"></script>
 <script src="/options/index.js"></script>
 </body>

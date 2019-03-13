@@ -17,14 +17,8 @@
   "browser_action": {
       "default_title": "Campaign Manager",
       "default_icon": "assets/icon.png",
-      "default_popup": "popup.html"
+      "default_popup": "popup/index.html"
   },
-  "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*" ],
-    "run_at": "document_idle",
-    "js": ["content/content.js"],
-    "css": ["content/content.css"]
-  }],
   "background": {
     "persistent": false,
     "scripts": [
@@ -33,6 +27,6 @@
       "inject.js"
     ]
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdn.datatables.net https://jsbeautifier.org; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
   "manifest_version": 2
 }
