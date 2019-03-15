@@ -13,20 +13,6 @@ function load_content_function () {
   });
 }
 
-//
-// // LOAD INSPECTOR SCRIPT
-// function load_dom_inspector () {
-//   chrome.tabs.executeScript({
-//     file: 'inspector.js'
-//   });
-// }
-//
-// function disable_dom_inspector() {
-//   chrome.tabs.executeScript({
-//     file: 'inspector_disable.js'
-//   });
-// }
-
 
 // INJECT FILE
 function load_content_script () {

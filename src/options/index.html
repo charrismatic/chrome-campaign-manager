@@ -21,12 +21,8 @@ textarea { font-family: monospace; }
   flex-grow: 1;
   padding: 0 1em;
 }
-.message__controls {
-  width: 70px;
-}
-.flex {
-  display: flex;
-}
+.message__controls { width: 70px; }
+.flex { display: flex; }
 </style>
 </head>
 <body class="h-100">
@@ -65,8 +61,11 @@ textarea { font-family: monospace; }
       <a class="nav-item nav-link" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="true">Settings</a>
     </div>
   </nav>
+
   <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-  <!-- 1 -->
+
+    <!-- 1 -->
+
     <div class="tab-pane fade show active" id="nav-messages" role="tabpanel" aria-labelledby="nav-messages-tab">
       <div class="card-group col" id="">
         <div class="card">
@@ -108,7 +107,7 @@ textarea { font-family: monospace; }
       </div>
     </div>
 
-        <!-- 2 -->
+    <!-- 2 -->
 
     <div class="tab-pane" id="nav-accounts" role="tabpanel" aria-labelledby="nav-accounts-tab">
       <div class="card-group col" id="">
@@ -129,11 +128,21 @@ textarea { font-family: monospace; }
             </thead>
             <tbody></tbody>
             <tfoot>
-              <tr class="add-accounts-row">
-                <td scope="col"><input class="input-field" type="text" placeholder="name"></input></td>
-                <td scope="col"><input class="input-field" type="text" placeholder="id"></input></td>
-                <td scope="col"><input class="input-field" type="text" placeholder="location"></input></td>
-                <td scope="col"><button>+</button></td>
+              <tr id="add-accounts-row">
+                <form id="account_form">
+                  <td scope="col">
+                    <input name="account_id" class="input-field" type="text" placeholder="id" required></input>
+                  </td>
+                  <td scope="col">
+                    <input name="account_name" class="input-field" type="text" placeholder="name"></input>
+                  </td>
+                  <td scope="col">
+                    <input name="account_location" class="input-field" type="text" placeholder="location"></input>
+                  </td>
+                  <td scope="col">
+                    <button id="add-account-button" type="button">+</button>
+                  </td>
+                </form>
               </tr>
             </tfoot>
           </table>
@@ -143,6 +152,7 @@ textarea { font-family: monospace; }
     </div>
 
     <!-- 3 -->
+
     <div class="tab-pane" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
       <div class="card-group col" id="">
         <div class="card">
@@ -166,9 +176,9 @@ textarea { font-family: monospace; }
                   <label>Default file naming pattern</label>
                   <input type='text' class="form-control" id='id-name-pattern' placeholder="%DATE_%URL__%TITLE.md"/>
                 </div>
+                <input type="hidden" name="data" value=''/>
               </form>
               <form id='codepen-form' class="flex-grow-1 w-100 ml-1" action="https://codepen.io/pen/define" method="POST" target="_blank" >
-                <input type="hidden" name="data" value=''/>
                 <button type='submit' class='btn btn-primary w-100'><span class="fui-mail"></span> Export</button>
               </form>
             </div>
@@ -176,8 +186,10 @@ textarea { font-family: monospace; }
         </div>
       </div>
     </div>
+
   </div>
-</section>
+  </section>
+
 </div>
 </div>
 <script src="/assets/scripts/jquery-1.8.3.min.js"></script>
