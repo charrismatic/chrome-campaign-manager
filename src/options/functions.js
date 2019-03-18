@@ -1,3 +1,11 @@
+// STRING CONSTANTS
+const s = {
+  DELETE_MESSAGE: 'x',
+  EDIT_MESSAGE: 'edit',
+  COPY_MESSAGE: 'copy',
+};
+
+
 // STORAGE
 
 const save_css =  () => {
@@ -12,16 +20,6 @@ const save_css =  () => {
     message('css saved')
   });
 };
-
-// const load_css =  () => {
-//   chrome.storage.local.get('css', function(items) {
-//     if (items.css) {
-//       textarea.value = items.css;
-//       message('css loaded ');
-//     }
-//   });
-// };
-
 
 const get_storage =  (key, callback) => {
   console.log('getting storage', key.toString());
@@ -55,9 +53,10 @@ const set_storage = (key, data) => {
 
 const init_test_selector =  () => {
   chrome.storage.local.get('accounts', function(data) {
+
     for (account of data.accounts) {
       append_html(account.id, {
-        target: '#test-account',
+        target: '#select-account',
         tagName: 'option',
         className: '',
         id: ''
@@ -90,62 +89,11 @@ const save_macro =  () => {
 };
 
 
-const parse_url = (url) => {
-  if (url) {
-    if (url.match(/^https?\:\/\//) ){
-      var new_url = new URL(  "https://" + url.replace(/https?\:\/\//, "" ).replace(/www\./, "") );
-      return { href: new_url.href, hostname: new_url.hostname, };
-    } else {
-      return { href: url, hostname: "" };
-    }
-  } else {
-    return { href: url, hostname: "" };
-  }
-};
-
-
-const flatten_array = (data) => {
-  var flat = [];
-  if ( data.length > 1) {
-    data.forEach( function( node ){
-      if ( node.length > 1) {
-        flat = flat.concat( flatten_array(node));
-      } else {
-        flat = flat.concat( node );
-      }
-    });
-  } else {
-    flat = flat.concat( node );
-  }
-  return flat;
-};
-
 
 const get_active_account =  () => {
-  return document.querySelector('#test-account').value;
+  return document.querySelector('#select-account').value;
 };
 
-
-
-// CLIPBOARD TOOLS
-const message_to_clip =  (ev) => {
-  var text = get_message_text(ev.target);
-  var id = get_active_account();
-  var id_string = ['@', id.toString()].join('');
-  var message = text.replace(/{{@pageurl}}/g, id_string);
-  return clip_message(message);
-};
-
-
-const clip_message =  (text) => {
-  navigator.clipboard.writeText(text).then(function() {
-    // CLIPBOARD WRITE SUCCESS
-    return true;
-  }, function() {
-    // CLIPBOARD WRITE FAILED
-    return false;
-  });
-}
 
 
 /**
@@ -211,9 +159,10 @@ const append_html = (content, options) => {
    }
 };
 
-/*
+
+/***************************************
  * MESSAGE TEMPLATE FUNCTIONS
- */
+ ***************************************/
 
 const get_message_text =  (el) => {
   return el.parentElement.parentElement.querySelector('.message__content').innerText
@@ -225,7 +174,7 @@ const get_message_row =  (message) => {
     <div class="message__actions">
       <button class="copy-message">${s.COPY_MESSAGE}</button>
     </div>
-    <div class="message__content">${message}</div>
+    <div class="message__content">${message.content}</div>
     <div class="message__controls">
       <button class="edit-message">${s.EDIT_MESSAGE}</button>
       <button class="delete-message">${s.DELETE_MESSAGE}</button>
@@ -234,16 +183,179 @@ const get_message_row =  (message) => {
 };
 
 
-const load_message_table = (data) => {
-  for (item of data){
-    append_html(
-      get_message_row(item.content), {
+const send_to_clipboard =  (text) => {
+
+  navigator.clipboard.writeText(text).then(function() {
+    // CLIPBOARD WRITE SUCCESS
+    return true;
+  }, function() {
+    // CLIPBOARD WRITE FAILED
+    return false;
+  });
+
+}
+
+
+const copy_message =  (ev) => {
+
+  var text = get_message_text(ev.target);
+  var id = get_active_account();
+  var id_string = ['@', id.toString()].join('');
+  var message = text.replace(/{{@pageurl}}/g, id_string);
+
+  return send_to_clipboard(message);
+
+};
+
+
+const delete_message = (ev) => {
+
+  var el = ev.target
+  var message_id = el.parentElement.parentElement.id
+  el.parentElement.parentElement.remove();
+
+  // return update_message_storage();
+
+};
+
+
+const edit_message = (ev) => {
+
+};
+
+
+const set_new_message_input_id = (num) => {
+  document.querySelector('#new_message_id').value = num;
+  return;
+};
+
+
+const message_table_add_row = (data) => {
+  append_html(
+    get_message_row(data), {
+      tagName: 'div',
       target: '#message_table',
       className: 'message flex',
-      id: `message-row-${item.id}`,
-    })
-  }
+      id: `message-${item.id}`,
+  });
+  return true;
 };
+
+
+const update_delete_message_storage = (id) => {
+
+  console.log(id);
+  chrome.storage.local.get('messages', function(data){
+    console.log(data);
+
+    // data.accounts.push(form_account_data);
+
+    save_account_storage(data.accounts);
+    return true;
+  });
+}
+
+
+const save_message_storage = (data) => {
+  if (!data) {
+    message('Error: Data not specified');
+    return;
+  }
+
+  chrome.storage.local.set({
+    'messages': data
+  }, function(){
+    message('messages saved')
+  });
+};
+
+
+const init_message_data = () => {
+
+  var message_data = [
+    {id: 1, content: 'Great - You walk in {{@pageurl}} - What are you ordering and who are you with?'},
+    {id: 2, content: 'Favorite thing to get at {{@pageurl}}?'},
+    {id: 3, content: 'Who are you taking with you to {{@pageurl}} if you win?'}
+  ];
+
+  chrome.storage.local.set({
+    'messages': message_data
+  }, function(){
+    message('init message data')
+  });
+
+}
+
+
+const load_message_table = () => {
+
+  chrome.storage.local.get('messages', function(data){
+
+    // HANDLE EMPTY DATA AND RESET
+    if (Object.keys(data).length < 1 ) {
+      init_message_data();
+    } else {
+
+      var account_data = data.messages;
+      for (item of account_data){
+        append_html(
+          get_message_row(item), {
+            tagName: 'div',
+            target: '#message_table',
+            className: 'message flex',
+            id: `message-${item.id}`,
+          }
+        )
+
+        // ADD BUTTON ON ACTIONS
+        document.querySelector(`#message-${item.id} .copy-message`).addEventListener('click', copy_message);
+        document.querySelector(`#message-${item.id} .delete-message`).addEventListener('click', delete_message);
+        document.querySelector(`#message-${item.id} .edit-message`).addEventListener('click', edit_message);
+      }
+
+      var message_count = parseInt(data.messages.length);
+      set_new_message_input_id(message_count);
+    }
+  })
+};
+
+
+/**
+ *  add_message
+ *  Main function to add new records to account storage
+ *  Handles basic type checking and validition
+ */
+
+const add_message = (ev) => {
+  ev.stopPropagation();
+
+  var form = document.forms['message_form'];
+
+  if (! form.checkValidity()){
+    message('form is not valid');
+    return false;
+  }
+
+  var form_data = process_form(form);
+
+  var form_message_data = {
+    id: form_data.new_message_id,
+    content: form_data.message_content,
+  };
+
+  var success = message_table_add_row(form_message_data);
+
+  if (success) {
+    form.reset();
+    chrome.storage.local.get('messages', function(data){
+      data.messages.push(form_message_data);
+      save_message_storage(data.messages);
+      return true;
+    });
+  }
+  return false;
+}
+
 
 
 /*
@@ -319,13 +431,12 @@ const load_accounts_table = () => {
 
   chrome.storage.local.get('accounts', function(data){
 
-    // HANDLE DATA CLEAR AND RESET
+    // HANDLE EMPTY DATA AND RESET
     if (Object.keys(data).length < 1 ) {
       init_account_data();
     } else {
 
       var account_data = data.accounts;
-      console.log(account_data);
       for (item of account_data){
         append_html(
           get_account_row(item), {
@@ -384,11 +495,7 @@ const add_account = (ev) => {
   if (success) {
     form.reset();
     chrome.storage.local.get('accounts', function(data){
-
-      console.log('get', data);
-
       data.accounts.push(form_account_data);
-      console.log('result', data.accounts);
       save_account_storage(data.accounts);
       return true;
     });

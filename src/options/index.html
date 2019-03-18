@@ -16,23 +16,27 @@ textarea { font-family: monospace; }
   background: #eee;
   padding: 5px;
 }
+.message-notification {
+  display: none;
+}
 .message__content {
   width: 80%;
   flex-grow: 1;
   padding: 0 1em;
 }
 .message__controls { width: 70px; }
+.delete_message { padding: 0 .4em;}
 .flex { display: flex; }
 </style>
 </head>
 <body class="h-100">
 <div class="container-fluid d-flex flex-column h-100 mt-0">
   <div>
-    <select id="test-account">
+    <select id="select-account">
       <option>Active Account</option>
     </select>
-    <button id="test-print">print</button>
-    <div id="test-message"></div>
+    <button id="select-print">print</button>
+    <div id="select-message"></div>
     </div>
   </div>
   <div class="row">
@@ -71,36 +75,49 @@ textarea { font-family: monospace; }
         <div class="card">
           <div class="card-header small py-1 px-1 my-0">
             <h4 class="card-title my-1 ml-2">
-              <span></span> Templates
+              <span></span> Messages
             </h4>
           </div>
           <div class="card-bodyContent small py-1 px-1 my-0" style="display:flex;">
             <div id="message_templates" style="display:block; border:1px solid #aaa; flex: 1;">
-              <div id="message_table" class="display compact" width="100%">
-              </div>
+              <div id="message_table" class="display compact" width="100%"></div>
             </div>
           </div>
-          <div class="">
-            <div class="col my-1 py-2">
-              <div class="message-notification"></div>
-            </div>
-          </div>
-          <div class="">
-            <div class="">
-              <div class="flex">
-                <div><span class="btn btn-outline-info">{{@id}}</span></div>
-                <div><span class="btn btn-outline-info">{{@website}}</span></div>
-                <div><span class="btn btn-outline-info">{{@pageurl}}</span></div>
-              </div>
-            </div>
-            <div class="col form-group">
-              <textarea name="style_url" style="min-height: 80px;" class="form-control" id="style_url" placeholder="Write an example message to start"></textarea>
+          <div class="row">
+            <div class="col">
+              <div class="message-notification my-1 py-2"></div>
             </div>
           </div>
           <div class="">
             <div class="col form-group">
-              <button class="submit">Add</button>
-              <button class="reset">Clear</button>
+              <form id="message_form">
+                <div class="container">
+                  <div class="flex">
+                    <div><span class="btn btn-outline-info">{{@id}}</span></div>
+                    <div><span class="btn btn-outline-info">{{@website}}</span></div>
+                    <div><span class="btn btn-outline-info">{{@pageurl}}</span></div>
+                  </div>
+                  <div class="row py-2">
+                    <div class="col" style="">
+                      <input id="new_message_id" name="message_id" class="input-field" type="hidden"></input>
+                      <textarea name="message_content"
+                        style="min-height: 80px;"
+                        class="form-control"
+                        id="style_url"
+                        placeholder="Write an example message to start"
+                        maxlength="8000"
+                        autofocus
+                        required></textarea>
+                    </div>
+                  </div>
+                  <div class="row py-2">
+                    <div class="col form-group">
+                      <button id="add-message-button" type="button" style="  width:3em; margin:0; padding:0;">Add</button>
+                      <button class="reset" type="button">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -158,15 +175,21 @@ textarea { font-family: monospace; }
         <div class="card">
           <div class="card-header small py-1 px-1 my-0">
             <h4 class="card-title my-1 ml-2">
-              <span></span> Settings
+              <span></span> Settings (*Under Development*)
             </h4>
           </div>
           <div id="settings" class="">
             <form>
               <div class="card card-body">
                 <div class="list-group form-group">
-                  <label class="form-check-label checkbox"><input type='checkbox' class="form-check-input" checked="checked" name="settings-storage-sync" id="settings-storage-sync"/>Sync data with Google Account</label>
-                  <label class="form-check-label checkbox"><input type='checkbox' class="form-check-input" checked="checked" id='remove-webkit-properties'/>Log result to console</label>
+                  <label class="form-check-label checkbox">
+                    <input type='checkbox' class="form-check-input" name="settings-storage-sync" id="settings-storage-sync" disabled/>
+                    <span>Sync data with Google Account</span>
+                  </label>
+                  <label class="form-check-label checkbox">
+                    <input type='checkbox' class="form-check-input" id='remove-webkit-properties'disabled/>
+                    <span>Log result to console</span>
+                  </label>
                 </div>
                 <div class="list-group form-group">
                   <label class="">Default save path</label>
@@ -183,7 +206,14 @@ textarea { font-family: monospace; }
               </form>
             </div>
           </div>
+
+          <div class="card-footer">
+            <p>Developed by <a href="https://ma.ttharr.is">Matt Harris</a></p>
+            <p>Github: <a href="https://github.com/charrismatic/chrome-campaign-manager">charrismatic/chrome-campaign-manager</a></p>
+            <p>Support: <a href="https://github.com/charrismatic/chrome-campaign-manager/issues">github issue tracker</a></p>
+          </div>
         </div>
+
       </div>
     </div>
 

@@ -1,43 +1,19 @@
 // TODO: HANDLE KEYBOARD INPUT ON ACCOUNT ENTRY
 // - PRESS ENTER BUTTON TO SUBMIT ROW
 
-const s = {
-  DELETE_MESSAGE: 'x',
-  EDIT_MESSAGE: 'edit',
-  COPY_MESSAGE: 'copy',
-};
 
-
-
+// INIT
 document.addEventListener('DOMContentLoaded', function () {
-
-  var message_data = [
-    {id: 1, content: 'Great - You walk in {{@pageurl}} - What are you ordering and who are you with?'},
-    {id: 2, content: 'Favorite thing to get at {{@pageurl}}?'},
-    {id: 3, content: 'Who are you taking with you to {{@pageurl}} if you win?'}
-  ];
-
   load_accounts_table();
-  load_message_table(message_data);
-
-  for (btn of document.querySelectorAll('.copy-message')){
-  	btn.addEventListener('click', message_to_clip);
-  }
-
-  // chrome.storage.local.get(['key'], function(result) {
-  //   console.log('Value currently is ' + result.key);
-  // });
+  load_message_table();
 
   var textarea = document.querySelector('textarea');
 
-  var resetButton = document.querySelector('button.reset');
-  resetButton.addEventListener('click', reset_css);
-
-  var submitButton = document.querySelector('button.submit');
-  submitButton.addEventListener('click', save_css);
-
   var add_account_button = document.querySelector('#add-account-button');
   add_account_button.addEventListener('click', add_account);
+
+  var add_message_button = document.querySelector('#add-message-button');
+  add_message_button.addEventListener('click', add_message);
 
   init_test_selector();
 });
