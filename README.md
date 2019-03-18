@@ -16,7 +16,7 @@ __Installation from release:__
 
 ## Usage
 
-This is only a documentation package. You can print out [spec.md](spec.md) to your console:
+Once installed right click on the extension button to go to the options page or find the link on the chrome extensions manager page.
 
 
 ## Support

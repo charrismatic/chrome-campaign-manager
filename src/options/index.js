@@ -14,4 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var add_message_button = document.querySelector('#add-message-button');
   add_message_button.addEventListener('click', add_message);
+
+  var fb_quicktag = document.querySelector('#fbid_tag');
+  fb_quicktag.addEventListener('click', insert_message_quicktags);
+
 });

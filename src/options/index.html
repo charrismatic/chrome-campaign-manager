@@ -35,7 +35,6 @@ textarea { font-family: monospace; }
     <select id="select-account">
       <option>Active Account</option>
     </select>
-    <button id="select-print">print</button>
     <div id="select-message"></div>
     </div>
   </div>
@@ -92,18 +91,18 @@ textarea { font-family: monospace; }
             <div class="col form-group">
               <form id="message_form">
                 <div class="container">
-                  <div class="flex">
-                    <div><span class="btn btn-outline-info">{{@fbid}}</span></div>
+                  <div id="message_quick_tags" class="flex">
+                    <div><span id="fbid_tag" class="btn btn-outline-info">{{@fbid}}</span></div>
                     <!-- <div><span class="btn btn-outline-info">{{@website}}</span></div> -->
                     <!-- <div><span class="btn btn-outline-info">{{@pageurl}}</span></div> -->
                   </div>
                   <div class="row py-2">
                     <div class="col" style="">
                       <input id="new_message_id" name="message_id" class="input-field" type="hidden"></input>
-                      <textarea name="message_content"
+                      <textarea id="message_content_input"
+                      name="message_content"
                         style="min-height: 80px;"
                         class="form-control"
-                        id="style_url"
                         placeholder="Write an example message to start"
                         maxlength="8000"
                         autofocus

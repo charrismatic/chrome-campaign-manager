@@ -52,8 +52,8 @@ const set_storage = (key, data) => {
 
 
 const init_test_selector =  () => {
+  document.querySelector('#select-account').innerHTML = "";
   chrome.storage.local.get('accounts', function(data) {
-
     for (account of data.accounts) {
       append_html(account.id, {
         target: '#select-account',
@@ -87,7 +87,6 @@ const save_macro =  () => {
     console.log('Value is set to ' + value);
   });
 };
-
 
 
 const get_active_account =  () => {
@@ -180,6 +179,17 @@ const get_message_row =  (message) => {
       <button class="delete-message">${s.DELETE_MESSAGE}</button>
     </div>
     `;
+};
+
+
+const insert_message_quicktags = (ev) => {
+  var tag = ev.target.innerText;
+
+  var message_input = document.querySelector('#message_content_input');
+  var message_text = message_input.value + " " + tag + " ";
+
+  message_input.value = message_text;
+
 };
 
 
