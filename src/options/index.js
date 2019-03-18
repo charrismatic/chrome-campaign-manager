@@ -14,6 +14,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var add_message_button = document.querySelector('#add-message-button');
   add_message_button.addEventListener('click', add_message);
-
-  init_test_selector();
 });

@@ -201,7 +201,7 @@ const copy_message =  (ev) => {
   var text = get_message_text(ev.target);
   var id = get_active_account();
   var id_string = ['@', id.toString()].join('');
-  var message = text.replace(/{{@pageurl}}/g, id_string);
+  var message = text.replace(/{{@fbid}}/g, id_string);
 
   return send_to_clipboard(message);
 
@@ -213,6 +213,8 @@ const delete_message = (ev) => {
   var el = ev.target
   var message_id = el.parentElement.parentElement.id
   el.parentElement.parentElement.remove();
+  console.log('message_id', message_id);
+  update_delete_message_storage(message_id);
 
   // return update_message_storage();
 
@@ -236,23 +238,41 @@ const message_table_add_row = (data) => {
       tagName: 'div',
       target: '#message_table',
       className: 'message flex',
-      id: `message-${item.id}`,
+      id: `message-${data.id}`,
   });
   return true;
 };
 
 
 const update_delete_message_storage = (id) => {
+  const MESSAGE_ID_PREFIX = 'message-';
 
-  console.log(id);
+  var message_id = parseInt(id.replace(MESSAGE_ID_PREFIX, ''));
   chrome.storage.local.get('messages', function(data){
-    console.log(data);
 
-    // data.accounts.push(form_account_data);
+    console.log('messages', data.messages[message_id]);
+    delete data.messages[message_id];
+    console.log(data.messages);
 
-    save_account_storage(data.accounts);
+    var message_array = [];
+
+    var index = 0;
+    for (item of data.messages) {
+      if (item) {
+        message_array.push({
+          id: index,
+          content: item.content
+        });
+
+        index = index + 1;
+      }
+    }
+
+    console.log('message_array', message_array);
+    save_message_storage(message_array);
     return true;
   });
+
 }
 
 
@@ -265,23 +285,30 @@ const save_message_storage = (data) => {
   chrome.storage.local.set({
     'messages': data
   }, function(){
+
     message('messages saved')
+
+    // RESET TABLE HTML ON UPDATE
+    document.querySelector('#message_table').innerHTML = "";
+    load_message_table();
   });
+
 };
 
 
 const init_message_data = () => {
 
   var message_data = [
-    {id: 1, content: 'Great - You walk in {{@pageurl}} - What are you ordering and who are you with?'},
-    {id: 2, content: 'Favorite thing to get at {{@pageurl}}?'},
-    {id: 3, content: 'Who are you taking with you to {{@pageurl}} if you win?'}
+    {id: 0, content: 'Great - You walk in {{@fbid}} - What are you ordering and who are you with?'},
+    {id: 1, content: 'Favorite thing to get at {{@fbid}}?'},
+    {id: 2, content: 'Who are you taking with you to {{@fbid}} if you win?'}
   ];
 
   chrome.storage.local.set({
     'messages': message_data
   }, function(){
-    message('init message data')
+    message('init message data');
+    load_message_table();
   });
 
 }
@@ -313,6 +340,7 @@ const load_message_table = () => {
         document.querySelector(`#message-${item.id} .edit-message`).addEventListener('click', edit_message);
       }
 
+      console.log(data.messages);
       var message_count = parseInt(data.messages.length);
       set_new_message_input_id(message_count);
     }
@@ -338,17 +366,19 @@ const add_message = (ev) => {
 
   var form_data = process_form(form);
 
+  console.log('form_data',form_data);
   var form_message_data = {
-    id: form_data.new_message_id,
+    id: form_data.message_id,
     content: form_data.message_content,
   };
-
+  console.log('form_message_data',form_message_data);
   var success = message_table_add_row(form_message_data);
 
   if (success) {
     form.reset();
     chrome.storage.local.get('messages', function(data){
       data.messages.push(form_message_data);
+
       save_message_storage(data.messages);
       return true;
     });
@@ -396,7 +426,8 @@ const init_account_data = () => {
   chrome.storage.local.set({
     'accounts': account_starter_data
   }, function(){
-    message('init account data')
+    message('init account data');
+    load_accounts_table();
   });
 
 }
@@ -447,6 +478,9 @@ const load_accounts_table = () => {
           }
         )
       }
+
+      init_test_selector();
+
     }
   })
 };
