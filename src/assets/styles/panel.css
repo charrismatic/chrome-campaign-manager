@@ -1,8 +1,263 @@
-.container {  margin-top: .5rem;  }
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+}
+
+textarea {
+  font-family: monospace;
+}
+
+.hide {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-apart {
+  justify-content: space-between;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-0 {
+  flex: 0;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.order-0 {
+  order: 0;
+}
+
+.order-1 {
+  order: 1;
+}
+
+.order-2 {
+  order: 2;
+}
+
+.order-3 {
+  order: 3;
+}
+
+.order-4 {
+  order: 4;
+}
+
+.order-5 {
+  order: 5;
+}
+
+button {
+  cursor: pointer;
+}
+
+.sra-text {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.hover-controls:not(:hover) button {
+  opacity: 0;
+}
+
+.hover-controls button {
+  transition: .05s;
+}
+
+.save-edit {
+  display: none;
+}
+
+.cancel-edit {
+  display: none;
+}
+
+.editable .hover-controls .save-edit {
+  opacity: 1;
+}
+
+.editable .hover-controls .cancel-edit {
+  opacity: 1;
+}
+
+.editable .save-edit {
+  display: block;
+}
+
+.editable .cancel-edit {
+  display: block;
+}
+
+.editable .edit-button {
+  display: none;
+}
+
+.editable .remove-button {
+  display: none;
+}
+
+.message-notification {
+  display: none;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:active,
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+.container {
+  margin-top: .5rem;
+}
 
 .row {
   margin-top: .5rem;
   margin-bottom: .5rem;
+}
+
+.table thead {
+  background-color: #eee;
+}
+
+.card-header {
+  background-color: #eee;
+}
+
+.card-title {
+  font-size: 1em;
+}
+
+.card-body {
+  background-color: #fff;
+}
+
+.message {
+  width: 100%;
+  padding: 5px;
+}
+
+.message:nth-child(2n-1) {
+  background-color: #f1f1f1;
+}
+
+.message:nth-child(2) {
+  background-color: #e4e4e4;
+}
+
+.popup #nav-settings-tab,
+.popup #nav-settings {
+  display: none;
+}
+
+.popup .main-title {
+  font-size: 1em;
+}
+
+#nav-messages .card-header {
+  display: none;
+}
+
+.message__actions {
+  padding: 0.4em 0 0 0;
+}
+
+.message__content {
+  width: 80%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: .2em 1em;
+}
+
+.popup .message__controls {
+  display: none;
+  width: 70px;
+}
+
+.message__controls {
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.delete_message {
+  padding: 0 .4em;
+}
+
+#select-account {
+  background: #41727f;
+  color: white;
+  font-size: 1.0em;
+  text-transform: capitalize;
+}
+
+#add-account-button {
+  flex: 0 0 5em;
+}
+
+.nav-tabs {
+  background-color: #dfdfdf;
+}
+
+.account {
+  padding: 1em 0.5em;
+}
+
+.account > * {
+  flex: 1 0 25%;
+  overflow-x: auto;
+  width: 33%;
+  white-space: nowrap;
+  margin: 0 4px;
+}
+
+.account .input-field {
+  line-height: 1;
+  height: auto;
+  display: inline-flex;
+  padding-left: 1%;
+  align-items: center;
+}
+
+.account > .controls {
+  width: 60px;
+  display: flex;
+  flex: 0 0 60px;
+  align-items: center;
+  padding-left: 0;
+  padding-right: 0;
+  justify-content: space-around;
+}
+
+.account > .account_location {
+  flex: 1 1 0;
 }
 
 #main-button-row {
@@ -15,8 +270,13 @@
   right: 5px;
 }
 
-#export-buttons-row div:first-child { text-align: right; }
-#export-buttons-row div:nth-child(2) { text-align: center; }
+#export-buttons-row div:first-child {
+  text-align: right;
+}
+
+#export-buttons-row div:nth-child(2) {
+  text-align: center;
+}
 
 #render,
 #textareas-row textarea {
@@ -31,8 +291,13 @@
   white-space: pre-wrap;
 }
 
-#render img { max-width: 100%; }
-iframe { display: none; }
+#render img {
+  max-width: 100%;
+}
+
+iframe {
+  display: none;
+}
 
 #loader {
   visibility: hidden;
@@ -57,25 +322,27 @@ iframe { display: none; }
   top: 15%;
 }
 
-#loader.creating,
-#loader.processing {
+#loader.creating, #loader.processing {
   visibility: visible;
   opacity: 1;
   -webkit-transition: opacity 0.3s, visibility 0;
   transition: opacity 0.3s, visibility 0;
 }
 
-#loader.creating .alert:first-child { display: block; }
-#loader.processing .alert:last-child { display: block; }
+#loader.creating .alert:first-child {
+  display: block;
+}
+
+#loader.processing .alert:last-child {
+  display: block;
+}
 
 #error-box {
-  /* height: 0; */
-  /* overflow: hidden; */
   -webkit-transition: height 0.3s;
   transition: height 0.3s;
 }
 
-#error-box.active {
+#error-box .active {
   height: 100px;
 }
 
@@ -83,6 +350,76 @@ iframe { display: none; }
   margin-top: 10px;
 }
 
-#settings {
-  /* padding-right: 10px; */
+.icon {
+  font-size: 2em;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: none;
+  background-color: inherit;
+}
+
+.icon-copy {
+  background-image: url("/assets/img/copy.svg");
+}
+
+.icon-copy:hover, .icon-copy:focus {
+  background-image: url("/assets/img/copy-active.svg");
+}
+
+.icon-edit {
+  background-image: url("/assets/img/edit.svg");
+}
+
+.icon-edit:hover, .icon-edit:focus {
+  background-image: url("/assets/img/edit-active.svg");
+}
+
+.icon-close {
+  background-image: url("/assets/img/times-circle.svg");
+}
+
+.icon-close:hover, .icon-close:focus {
+  background-image: url("/assets/img/times-circle-active.svg");
+}
+
+.icon-save {
+  background-image: url("/assets/img/check-circle.svg");
+}
+
+.icon-save:hover, .icon-save:focus {
+  background-image: url("/assets/img/check-circle-active.svg");
+}
+
+.icon-undo {
+  background-image: url("/assets/img/undo.svg");
+  background-size: 80%;
+}
+
+.icon-undo:hover, .icon-undo:focus {
+  background-image: url("/assets/img/undo-active.svg");
+  background-size: 80%;
+}
+
+/* EDITABLE CONTENT */
+.editable {
+  color: #616161;
+  font-style: italic;
+}
+
+.editable .input-field {
+  border: 1px solid #1abc9c;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.editable:hover > .input-field[contenteditable="true"] {
+  background-color: rgba(217, 245, 255, 0.5);
+  border: 1px solid #1abc9c;
+}
+
+.editable .input-field[contenteditable="true"]:hover, .editable .input-field[contenteditable="true"]:focus {
+  border: 1px solid #148f77;
 }

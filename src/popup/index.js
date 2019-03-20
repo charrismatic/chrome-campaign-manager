@@ -1,11 +1,11 @@
-function open_options_page () {
-  chrome.tabs.create({'url': "/options/index.html" } )
-}
-
 // INIT
 document.addEventListener('DOMContentLoaded', function () {
+  load_message_table();
+  load_accounts_table();
+
   var open_options_button = document.querySelector('#open_options_button');
-  console.log('popup loaded');
-  console.log('open_options_button',open_options_button );
   open_options_button.addEventListener('click', open_options_page);
+  init_message_ui();
+  init_tab_ui();
+
 });
