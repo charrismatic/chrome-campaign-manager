@@ -66,10 +66,7 @@ const delete_message = (ev) => {
   var el = ev.target
   var message_id = el.parentElement.parentElement.id
   el.parentElement.parentElement.remove();
-  console.log('message_id', message_id);
   update_delete_message_storage(message_id);
-
-  // return update_message_storage();
 
 };
 
@@ -162,8 +159,8 @@ const load_message_table = () => {
       init_message_data();
     } else {
 
-      var account_data = data.messages;
-      for (item of account_data){
+      var message_data = data.messages;
+      for (item of message_data){
         append_html(
           get_message_row(item), {
             tagName: 'div',
@@ -244,13 +241,15 @@ const init_message_data = () => {
 const init_test_selector =  () => {
   document.querySelector('#select-account').innerHTML = "";
   chrome.storage.local.get('accounts', function(data) {
-    for (account of data.accounts) {
-      append_html(account.name, {
+    var account_data = data.accounts;
+    for (account of Object.keys(account_data)) {
+      append_html(account_data[account].name, {
         target: '#select-account',
         tagName: 'option',
         className: '',
-        id: `${account.id}`
+        id: account_data[account].id
       });
+
     }
   })
 };

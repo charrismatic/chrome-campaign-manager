@@ -1,76 +1,95 @@
+/* line 6, panel.scss */
 body {
   font-family: sans-serif;
   font-size: 16px;
 }
 
+/* line 10, panel.scss */
 label {
   display: block;
 }
 
+/* line 11, panel.scss */
 textarea {
   font-family: monospace;
 }
 
+/* line 12, panel.scss */
 .hide {
   display: none;
 }
 
+/* line 14, panel.scss */
 .flex {
   display: flex;
 }
 
+/* line 16, panel.scss */
 .flex-apart {
   justify-content: space-between;
 }
 
+/* line 19, panel.scss */
 .flex-1 {
   flex: 1;
 }
 
+/* line 20, panel.scss */
 .flex-0 {
   flex: 0;
 }
 
+/* line 24, panel.scss */
 .align-left {
   text-align: left;
 }
 
+/* line 25, panel.scss */
 .align-right {
   text-align: right;
 }
 
+/* line 26, panel.scss */
 .align-center {
   text-align: center;
 }
 
+/* line 30, panel.scss */
 .order-0 {
   order: 0;
 }
 
+/* line 31, panel.scss */
 .order-1 {
   order: 1;
 }
 
+/* line 32, panel.scss */
 .order-2 {
   order: 2;
 }
 
+/* line 33, panel.scss */
 .order-3 {
   order: 3;
 }
 
+/* line 34, panel.scss */
 .order-4 {
   order: 4;
 }
 
+/* line 35, panel.scss */
 .order-5 {
   order: 5;
 }
 
+/* line 38, panel.scss */
 button {
   cursor: pointer;
 }
 
+/* line 43, panel.scss */
 .sra-text {
   position: absolute;
   left: -10000px;
@@ -80,50 +99,62 @@ button {
   overflow: hidden;
 }
 
+/* line 56, panel.scss */
 .hover-controls:not(:hover) button {
   opacity: 0;
 }
 
+/* line 59, panel.scss */
 .hover-controls button {
   transition: .05s;
 }
 
+/* line 62, panel.scss */
 .save-edit {
   display: none;
 }
 
+/* line 63, panel.scss */
 .cancel-edit {
   display: none;
 }
 
+/* line 67, panel.scss */
 .editable .hover-controls .save-edit {
   opacity: 1;
 }
 
+/* line 68, panel.scss */
 .editable .hover-controls .cancel-edit {
   opacity: 1;
 }
 
+/* line 72, panel.scss */
 .editable .save-edit {
   display: block;
 }
 
+/* line 73, panel.scss */
 .editable .cancel-edit {
   display: block;
 }
 
+/* line 76, panel.scss */
 .editable .edit-button {
   display: none;
 }
 
+/* line 77, panel.scss */
 .editable .remove-button {
   display: none;
 }
 
+/* line 81, panel.scss */
 .message-notification {
   display: none;
 }
 
+/* line 83, panel.scss */
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:active,
 .nav-tabs .nav-link:focus,
@@ -132,61 +163,75 @@ button {
   color: #fff;
 }
 
+/* line 91, panel.scss */
 .container {
   margin-top: .5rem;
 }
 
+/* line 93, panel.scss */
 .row {
   margin-top: .5rem;
   margin-bottom: .5rem;
 }
 
+/* line 102, panel.scss */
 .table thead {
   background-color: #eee;
 }
 
+/* line 106, panel.scss */
 .card-header {
   background-color: #eee;
 }
 
+/* line 107, panel.scss */
 .card-title {
   font-size: 1em;
 }
 
+/* line 108, panel.scss */
 .card-body {
   background-color: #fff;
 }
 
+/* line 109, panel.scss */
 .message {
   width: 100%;
   padding: 5px;
 }
 
+/* line 113, panel.scss */
 .message:nth-child(2n-1) {
   background-color: #f1f1f1;
 }
 
+/* line 114, panel.scss */
 .message:nth-child(2) {
   background-color: #e4e4e4;
 }
 
+/* line 120, panel.scss */
 .popup #nav-settings-tab,
 .popup #nav-settings {
   display: none;
 }
 
+/* line 124, panel.scss */
 .popup .main-title {
   font-size: 1em;
 }
 
+/* line 131, panel.scss */
 #nav-messages .card-header {
   display: none;
 }
 
+/* line 134, panel.scss */
 .message__actions {
   padding: 0.4em 0 0 0;
 }
 
+/* line 135, panel.scss */
 .message__content {
   width: 80%;
   flex-grow: 1;
@@ -195,11 +240,13 @@ button {
   padding: .2em 1em;
 }
 
+/* line 143, panel.scss */
 .popup .message__controls {
   display: none;
   width: 70px;
 }
 
+/* line 148, panel.scss */
 .message__controls {
   width: 70px;
   display: flex;
@@ -207,10 +254,12 @@ button {
   justify-content: space-around;
 }
 
+/* line 154, panel.scss */
 .delete_message {
   padding: 0 .4em;
 }
 
+/* line 158, panel.scss */
 #select-account {
   background: #41727f;
   color: white;
@@ -218,18 +267,27 @@ button {
   text-transform: capitalize;
 }
 
+/* line 165, panel.scss */
 #add-account-button {
   flex: 0 0 5em;
 }
 
+/* line 172, panel.scss */
+#message_table .edit-message {
+  display: none !important;
+}
+
+/* line 174, panel.scss */
 .nav-tabs {
   background-color: #dfdfdf;
 }
 
+/* line 178, panel.scss */
 .account {
   padding: 1em 0.5em;
 }
 
+/* line 181, panel.scss */
 .account > * {
   flex: 1 0 25%;
   overflow-x: auto;
@@ -238,6 +296,7 @@ button {
   margin: 0 4px;
 }
 
+/* line 189, panel.scss */
 .account .input-field {
   line-height: 1;
   height: auto;
@@ -246,6 +305,7 @@ button {
   align-items: center;
 }
 
+/* line 197, panel.scss */
 .account > .controls {
   width: 60px;
   display: flex;
@@ -256,34 +316,41 @@ button {
   justify-content: space-around;
 }
 
+/* line 210, panel.scss */
 .account > .account_location {
   flex: 1 1 0;
 }
 
+/* line 215, panel.scss */
 #main-button-row {
   text-align: center;
 }
 
+/* line 217, panel.scss */
 #textareas-row .badge {
   position: absolute;
   top: 1px;
   right: 5px;
 }
 
+/* line 223, panel.scss */
 #export-buttons-row div:first-child {
   text-align: right;
 }
 
+/* line 224, panel.scss */
 #export-buttons-row div:nth-child(2) {
   text-align: center;
 }
 
+/* line 226, panel.scss */
 #render,
 #textareas-row textarea {
   width: 100%;
   height: 150px;
 }
 
+/* line 232, panel.scss */
 #render {
   font-size: .7em;
   overflow-y: auto;
@@ -291,14 +358,17 @@ button {
   white-space: pre-wrap;
 }
 
+/* line 239, panel.scss */
 #render img {
   max-width: 100%;
 }
 
+/* line 240, panel.scss */
 iframe {
   display: none;
 }
 
+/* line 242, panel.scss */
 #loader {
   visibility: hidden;
   position: absolute;
@@ -313,6 +383,7 @@ iframe {
   transition: opacity 0.3s, visibility 0.3s;
 }
 
+/* line 255, panel.scss */
 #loader .alert {
   display: none;
   position: absolute;
@@ -322,6 +393,7 @@ iframe {
   top: 15%;
 }
 
+/* line 264, panel.scss */
 #loader.creating, #loader.processing {
   visibility: visible;
   opacity: 1;
@@ -329,27 +401,33 @@ iframe {
   transition: opacity 0.3s, visibility 0;
 }
 
+/* line 272, panel.scss */
 #loader.creating .alert:first-child {
   display: block;
 }
 
+/* line 273, panel.scss */
 #loader.processing .alert:last-child {
   display: block;
 }
 
+/* line 276, panel.scss */
 #error-box {
   -webkit-transition: height 0.3s;
   transition: height 0.3s;
 }
 
+/* line 279, panel.scss */
 #error-box .active {
   height: 100px;
 }
 
+/* line 284, panel.scss */
 #about ul {
   margin-top: 10px;
 }
 
+/* line 289, panel.scss */
 .icon {
   font-size: 2em;
   width: 1em;
@@ -361,65 +439,79 @@ iframe {
   background-color: inherit;
 }
 
+/* line 300, panel.scss */
 .icon-copy {
   background-image: url("/assets/img/copy.svg");
 }
 
+/* line 301, panel.scss */
 .icon-copy:hover, .icon-copy:focus {
   background-image: url("/assets/img/copy-active.svg");
 }
 
+/* line 302, panel.scss */
 .icon-edit {
   background-image: url("/assets/img/edit.svg");
 }
 
+/* line 303, panel.scss */
 .icon-edit:hover, .icon-edit:focus {
   background-image: url("/assets/img/edit-active.svg");
 }
 
+/* line 304, panel.scss */
 .icon-close {
   background-image: url("/assets/img/times-circle.svg");
 }
 
+/* line 305, panel.scss */
 .icon-close:hover, .icon-close:focus {
   background-image: url("/assets/img/times-circle-active.svg");
 }
 
+/* line 306, panel.scss */
 .icon-save {
   background-image: url("/assets/img/check-circle.svg");
 }
 
+/* line 307, panel.scss */
 .icon-save:hover, .icon-save:focus {
   background-image: url("/assets/img/check-circle-active.svg");
 }
 
+/* line 308, panel.scss */
 .icon-undo {
   background-image: url("/assets/img/undo.svg");
   background-size: 80%;
 }
 
+/* line 309, panel.scss */
 .icon-undo:hover, .icon-undo:focus {
   background-image: url("/assets/img/undo-active.svg");
   background-size: 80%;
 }
 
 /* EDITABLE CONTENT */
+/* line 315, panel.scss */
 .editable {
   color: #616161;
   font-style: italic;
 }
 
+/* line 320, panel.scss */
 .editable .input-field {
   border: 1px solid #1abc9c;
   overflow-y: hidden;
   overflow-x: hidden;
 }
 
+/* line 325, panel.scss */
 .editable:hover > .input-field[contenteditable="true"] {
   background-color: rgba(217, 245, 255, 0.5);
   border: 1px solid #1abc9c;
 }
 
+/* line 331, panel.scss */
 .editable .input-field[contenteditable="true"]:hover, .editable .input-field[contenteditable="true"]:focus {
   border: 1px solid #148f77;
 }

@@ -78,7 +78,6 @@ button {
 }
 
 
-
 .message-notification { display: none; }
 
 .nav-tabs .nav-link.active,
@@ -155,6 +154,7 @@ button {
 .delete_message { padding: 0 .4em;}
 
 
+
 #select-account {
   background: #41727f;
   color: white;
@@ -167,9 +167,10 @@ button {
 }
 
 #accounts_table {
-
 }
-
+#message_table {
+  .edit-message { display: none !important; }
+}
 .nav-tabs {
   background-color: #dfdfdf;
 }

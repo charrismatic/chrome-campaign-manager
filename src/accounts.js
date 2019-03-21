@@ -10,15 +10,16 @@ class AccountManager {
   constructor(accounts) {
       this.accounts = accounts;
       this.snapshot = Object.create(null);
+      this.key = "accounts";
   }
 
   get_account_model() {
     return {
       id: '',
+      name: '',
       location: '',
       url: '',
       website: '',
-      name: '',
     }
   }
 
@@ -28,30 +29,8 @@ class AccountManager {
 }
 
 
-const init_account_data = () => {
-  var account_starter_data = [
-    {
-      id: 'AzzipPizzaEvansville',
-      location: 'evansville',
-      url: 'facebook.com/AzzipPizzaEvansville',
-      website: 'azzippizza.com',
-      name: 'Azzip Pizza',
-    }, {
-      id: 'Boonville-Pizza-Chef-299288533451805',
-      location: 'boonville',
-      url: 'facebook.com/Boonville-Pizza-Chef-299288533451805',
-      website: 'pizzachefboonville.com',
-      name: 'Boonville Pizza Chef',
-    }
-  ];
-
-  chrome.storage.local.set({
-    'accounts': account_starter_data
-  }, function(){
-    message('init account data');
-    load_accounts_table();
-  });
-
+const format_account_id = (id) => {
+  return id.replace(/-/g,'_').toLowerCase();
 }
 
 
@@ -64,15 +43,14 @@ const load_accounts_table = () => {
     if (Object.keys(data).length < 1 ) {
       init_account_data();
     } else {
-
       var account_data = data.accounts;
-      for (item of account_data){
+      for (item of Object.keys(account_data)){
         append_html(
-          get_account_row(item), {
+          get_account_row(account_data[item]), {
             tagName: 'div',
             target: '#account_table_content',
             className: 'account hover-controls flex',
-            id: `account-row-${item.id}`,
+            id: item
           }
         )
       }
@@ -83,30 +61,6 @@ const load_accounts_table = () => {
     }
   })
 };
-
-
-
-const init_account_table_ui = () => {
-
-  var add_account_button = document.querySelector('#add-account-button');
-  add_account_button.addEventListener('click', add_account);
-  var buttons = document.querySelectorAll('#account_table_content .controls button');
-
-  var button;
-  for (button of buttons){
-    if (button.classList.contains('edit-button')) {
-      button.addEventListener('click', edit_account);
-    }
-    if (button.classList.contains('remove-button')) {
-      button.addEventListener('click', remove_account);
-    }
-    if (button.classList.contains('cancel-edit')) {
-      button.addEventListener('click', cancel_edit);
-    }
-  }
-}
-
-
 
 
 const save_account_storage = (data) => {
@@ -194,7 +148,6 @@ const add_account = (ev) => {
     return false;
   }
 
-  // TODO TEST INPUT ID IS UNIQUE;
   var form_data = process_form(form);
 
   var form_account_data = {
@@ -208,8 +161,12 @@ const add_account = (ev) => {
   if (success) {
     form.reset();
     chrome.storage.local.get('accounts', function(data){
-      data.accounts.push(form_account_data);
+      var new_id = format_account_id(form_account_data.id);
+      data.accounts[new_id] = form_account_data;
       save_account_storage(data.accounts);
+
+      document.querySelector('#account_table_content').innerHTML = "";
+      load_accounts_table();
       return true;
     });
   }
@@ -223,14 +180,6 @@ const edit_account = (ev) => {
   var node = ev.target.parentElement.parentElement;
   var account_snapshot = get_account_row_get_data(node);
   account_manager.snapshot = account_snapshot;
-
-  console.log('set', account_manager.snapshot);
-
-  // REJECT BAD INPUT
-  if (! node.classList.contains('account')){
-    console.log('There was an issue with the selected record');
-    return false;
-  }
 
   var inputs = node.querySelectorAll('.input-field');
 
@@ -250,17 +199,6 @@ const edit_account = (ev) => {
   }
   inputs[0].focus();
 
-
-  // var success = accounts_table_add_row(form_account_data);
-  // if (success) {
-  //   form.reset();
-  //   chrome.storage.local.get('accounts', function(data){
-  //     data.accounts.push(form_account_data);
-  //     save_account_storage(data.accounts);
-  //     return true;
-  //   });
-  // }
-  // return false;
 }
 
 
@@ -278,56 +216,114 @@ const update_edit_account_storage = (id) => {
     for (item of data.accounts) {
       if (item) {
         message_array.push({
-          id: index,
-          content: item.content
+          id: '',
+          name: '',
+          location: '',
         });
 
         index = index + 1;
       }
     }
 
-    save_message_storage(message_array);
+    // save_message_storage(message_array);
     return true;
   });
 
 }
 
 
-const update_save_account_storage = (id) => {
+const save_account_edit = (ev) => {
+  ev.stopPropagation();
 
-  const MESSAGE_ID_PREFIX = 'account-row-';
+  var node = ev.target.parentElement.parentElement;
 
-  var account_id = parseInt(id.replace(MESSAGE_ID_PREFIX, ''));
+  var inputs = node.querySelectorAll('.input-field');
 
-  chrome.storage.local.get('accounts', function(data){
-    delete data.accounts[account_id];
-    var message_array = [];
-    var index = 0;
-    for (item of data.accounts) {
-      if (item) {
-        message_array.push({
-          id: index,
-          content: item.content
-        });
-        index = index + 1;
-      }
+  // COMPLETE CURRENT EDIT EVENT
+  if (window.form_is_editing) {
+    var current_edit = document.querySelector('.account.editable');
+    var edit_fields = current_edit.querySelectorAll('.input-field');
+    for (input of edit_fields) {
+      toggle_editable(input);
     }
-    save_message_storage(message_array);
-    return true;
-  });
-}
+    current_edit.classList.remove('editable');
+  }
 
+  var account_snapshot = get_account_row_get_data(node);
+  account_manager.accounts[node.id] = account_snapshot;
+  chrome.storage.local.set({'accounts': account_manager.accounts}, function(){
+    document.querySelector('#account_table_content').innerHTML = "";
+    load_accounts_table();
+  });
+
+}
 
 
 const remove_account = (ev) => {
   ev.stopPropagation();
 
-  var el = ev.target.parentElement.parentElement;
+  var node = ev.target.parentElement.parentElement;
 
-  if (! el.classList.contains('account')){
+  if (! node.classList.contains('account')){
     console.log('There was an issue with the selected record');
     return false;
   }
 
-  console.log('remove');
+  delete account_manager.accounts[node.id];
+  chrome.storage.local.set({'accounts': account_manager.accounts}, function() {
+    document.querySelector('#account_table_content').innerHTML = "";
+    load_accounts_table();
+  });
+}
+
+
+const init_account_data = () => {
+  var account_starter_data = {
+    azzippizzaevansville: {
+      id: 'AzzipPizzaEvansville',
+      location: 'evansville',
+      url: 'facebook.com/AzzipPizzaEvansville',
+      website: 'azzippizza.com',
+      name: 'Azzip Pizza',
+    },
+    boonville_pizza_chef_299288533451805: {
+      id: 'Boonville-Pizza-Chef-299288533451805',
+      location: 'boonville',
+      url: 'facebook.com/Boonville-Pizza-Chef-299288533451805',
+      website: 'pizzachefboonville.com',
+      name: 'Boonville Pizza Chef',
+    }
+  }
+
+  chrome.storage.local.set({
+    'accounts': account_starter_data
+  }, function(){
+    message('init account data');
+    load_accounts_table();
+  });
+
+}
+
+
+const init_account_table_ui = () => {
+
+  var add_account_button = document.querySelector('#add-account-button');
+  add_account_button.addEventListener('click', add_account);
+  var buttons = document.querySelectorAll('#account_table_content .controls button');
+
+  var button;
+  for (button of buttons){
+    if (button.classList.contains('edit-button')) {
+      button.addEventListener('click', edit_account);
+    }
+    if (button.classList.contains('remove-button')) {
+      button.addEventListener('click', remove_account);
+    }
+    if (button.classList.contains('cancel-edit')) {
+      button.addEventListener('click', cancel_edit);
+    }
+    if (button.classList.contains('save-edit')) {
+      button.addEventListener('click', save_account_edit);
+    }
+  }
 }
