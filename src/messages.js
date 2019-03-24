@@ -3,8 +3,10 @@
  * MESSAGE TEMPLATE FUNCTIONS
  ***************************************/
 
-const get_active_account =  () => {
-  return document.querySelector('#select-account').value;
+const get_active_account =  () => {  
+  var select = document.querySelector('#select-account');
+  var index = select.selectedIndex;
+  return select.options[index].id;
 };
 
 const get_message_text =  (el) => {
